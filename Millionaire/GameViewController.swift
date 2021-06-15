@@ -8,7 +8,7 @@
 import UIKit
 
 protocol GameViewControllerDelegate: AnyObject {
-    func didEndGame(with result: Int)
+    func didEndGame(with result: GameSession)
 }
 
 final class GameViewController: UIViewController {
@@ -37,15 +37,17 @@ final class GameViewController: UIViewController {
         stackView.spacing = 10
         return stackView
     }()
-        
+    
     weak var delegate: GameViewControllerDelegate?
     
     var index: Int = 0
     var score: Int = 0
+    var callFriend: Bool = false
+    var removeIncorrectAnswers: Bool = false
     var isGameOver: Bool = false
     let questions: [Question] = getQuestions()
     var anwserButtons: [AnswerButton] = []
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,7 +91,7 @@ final class GameViewController: UIViewController {
         btn1.tag = GameButton.HelpFriend.rawValue
         btn1.setTitle("Звонок другу 🙋‍♂️", for: .normal)
         btn1.addTarget(self, action: #selector(didTapTookHint(sender:)), for: .touchUpInside)
-    
+        
         let btn2 = HelpButton()
         btn2.tag = GameButton.RemoveIncorrectAnswers.rawValue
         btn2.setTitle(" Убрать 2 неверных ответа", for: .normal)
@@ -108,8 +110,9 @@ final class GameViewController: UIViewController {
         
         switch sender.tag {
         case GameButton.HelpFriend.rawValue:
-            let currentButton = stackView.subviews.map { $0 as? AnswerButton}
+            callFriend = true
             
+            let currentButton = stackView.subviews.map { $0 as? AnswerButton}
             let correctAnswer = questions[index].correctAnswer
             
             if Bool.random() {
@@ -118,16 +121,18 @@ final class GameViewController: UIViewController {
                 let randomAnswer = currentButton
                     .filter { $0?.titleLabel?.text != correctAnswer }
                     .randomElement()??.titleLabel?.text ?? "нет ответа"
-                    
+                
                 showAlert(alertText: "Звонок другу", alertMessage: "Друг думает, что: \(randomAnswer)")
             }
             
         case GameButton.RemoveIncorrectAnswers.rawValue:
+            removeIncorrectAnswers = true
+
             var del = 0
             for variant in currentQuestion.answerOptions {
                 if del < 2, variant != currentQuestion.correctAnswer {
-                    
-                stackView.subviews.first { subView in
+
+                    stackView.subviews.first { subView in
                         if let answerButton = subView as? AnswerButton,
                            answerButton.titleLabel?.text == variant {
                             stackView.removeArrangedSubview(answerButton)
@@ -136,10 +141,9 @@ final class GameViewController: UIViewController {
                         } else {
                             return false
                         }
-                   }?.removeFromSuperview()
+                    }?.removeFromSuperview()
                 }
             }
-
         default:
             return
         }
@@ -176,7 +180,7 @@ final class GameViewController: UIViewController {
         if isGameOver {
             return
         }
-            
+        
         let question = questions[index]
         
         if let titleButtonLabel = sender.titleLabel?.text, titleButtonLabel == question.correctAnswer  {
@@ -197,7 +201,10 @@ final class GameViewController: UIViewController {
     }
     
     private func gameOver() {
-        delegate?.didEndGame(with: score)
+        delegate?.didEndGame(with: GameSession(score: score,
+                                               callFriend: callFriend,
+                                               removeIncorrectAnswers: removeIncorrectAnswers,
+                                               date: Date()))
         dismiss(animated: true, completion: nil)
     }
 }

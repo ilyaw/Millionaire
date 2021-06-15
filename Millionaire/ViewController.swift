@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     let segueToGameVC = "ToGameVC"
+    let segueToShowStatistics = "ToShowRecords"
     
     @IBOutlet weak var scoreLabel: UILabel!
     
@@ -16,12 +17,16 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func didTapNewGame(_ sender: UIButton) {
         performSegue(withIdentifier: segueToGameVC, sender: self)
     }
+    
+    @IBAction func didTapShowStatistics(_ sender: UIButton) {
+        performSegue(withIdentifier: segueToShowStatistics, sender: self)
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
@@ -36,8 +41,9 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: GameViewControllerDelegate {
-    func didEndGame(with result: Int) {
-        scoreLabel.text = "Последний результат: \(result) из \(questionCount)"
+    func didEndGame(with result: GameSession) {
+        scoreLabel.text = "Последний результат: \(result.score) из \(questionCount)"
+        Game.shared.addGameSession(with: result)
     }
 }
 

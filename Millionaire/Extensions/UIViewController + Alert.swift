@@ -5,9 +5,7 @@
 //  Created by Ilya on 15.06.2021.
 //
 
-import Foundation
 import UIKit
-
 
 extension UIViewController {
     func showAlert(alertText : String, alertMessage : String) {

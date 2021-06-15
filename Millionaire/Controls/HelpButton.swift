@@ -30,5 +30,4 @@ class HelpButton: UIButton {
         titleLabel?.font = UIFont(name: "AvenirNext-DemiBoldItalic", size: 22)
         layer.cornerRadius = 10
     }
-
 }
