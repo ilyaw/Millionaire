@@ -15,7 +15,6 @@ protocol GameViewControllerDelegate: AnyObject {
 }
 
 final class GameViewController: UIViewController {
-    let segueToHelpVC = "ToHelpVC"
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -34,12 +33,11 @@ final class GameViewController: UIViewController {
         return stackView
     }()
     
-    let stackViewButtonsHelp: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10
-        return stackView
+    let helpButton: HelpButton = {
+        let button = HelpButton()
+        button.setTitle("Показать подсказки", for: .normal)
+        button.addTarget(self, action: #selector(didTapShowHelpVC), for: .touchUpInside)
+        return button
     }()
     
     weak var delegate: GameViewControllerDelegate?
@@ -52,13 +50,20 @@ final class GameViewController: UIViewController {
         
         view.addSubview(titleLabel)
         view.addSubview(stackView)
-        view.addSubview(stackViewButtonsHelp)
+        view.addSubview(helpButton)
         
         setTitleConstraints()
         setStackViewConstraints()
-        setStackViewButtonsHelpConstraints()
-        showButtonsHelp()
         showNextQuetion()
+        setHelpButtonConstraints()
+    }
+    
+    func setHelpButtonConstraints() {
+        helpButton.translatesAutoresizingMaskIntoConstraints = false
+        helpButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 25).isActive = true
+        helpButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25).isActive = true
+        helpButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25).isActive = true
+        helpButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -25).isActive = true
     }
     
     func setTitleConstraints() {
@@ -76,99 +81,19 @@ final class GameViewController: UIViewController {
         stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25).isActive = true
     }
     
-    func setStackViewButtonsHelpConstraints() {
-        stackViewButtonsHelp.translatesAutoresizingMaskIntoConstraints = false
-        stackViewButtonsHelp.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20).isActive = true
-        stackViewButtonsHelp.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25).isActive = true
-        stackViewButtonsHelp.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25).isActive = true
-        stackViewButtonsHelp.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -25).isActive = true
-        stackViewButtonsHelp.heightAnchor.constraint(equalToConstant: 100).isActive = true
+    @objc func didTapShowHelpVC(sender: UIButton) {
+        let vc = HelpViewController()
+        vc.delegate = self
+        vc.modalPresentationStyle = .custom
+        present(vc, animated: true, completion: nil)
     }
     
-    func showButtonsHelp() {
-        let btn1 = HelpButton()
-        btn1.tag = GameButton.HelpFriend.rawValue
-        btn1.setTitle("Звонок другу 🙋‍♂️", for: .normal)
-        btn1.addTarget(self, action: #selector(didTapTookHint(sender:)), for: .touchUpInside)
-        
-        let btn2 = HelpButton()
-        btn2.tag = GameButton.RemoveIncorrectAnswers.rawValue
-        btn2.setTitle(" Убрать 2 неверных ответа", for: .normal)
-        btn2.addTarget(self, action: #selector(didTapTookHint(sender:)), for: .touchUpInside)
-        
-        stackViewButtonsHelp.addArrangedSubview(btn1)
-        stackViewButtonsHelp.addArrangedSubview(btn2)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case segueToHelpVC:
-            if let destination = segue.destination as? HelpViewController {
-                destination.delegate = self
-            }
-        default:
-            break
-        }
-    }
-    
-    @objc func didTapTookHint(sender: UIButton) {
-        
-        performSegue(withIdentifier: segueToHelpVC, sender: self)
-        
-//        guard let question = delegate?.getCurrentQuestion(), !isGameOver else { return }
-//
-//        switch sender.tag {
-//        case GameButton.HelpFriend.rawValue:
-////            delegate?.hint(type: .callFriend)
-//
-////            let currentButton = stackView.subviews.map { $0 as? AnswerButton}
-////            let correctAnswer = question.correctAnswer
-////
-////            var friendAnswer = ""
-////
-////            if Bool.random() {
-////                friendAnswer = correctAnswer
-////            } else {
-////                let randomAnswer = currentButton
-////                    .filter { $0?.titleLabel?.text != correctAnswer }
-////                    .randomElement()??.titleLabel?.text ?? "нет ответа"
-////
-////                friendAnswer = randomAnswer
-////            }
-////            showAlert(alertText: "Звонок другу", alertMessage: "Друг думает, что: \(friendAnswer)")
-////
-//        case GameButton.RemoveIncorrectAnswers.rawValue:
-////            delegate?.hint(type: .fiftyFifty)
-////
-////            var del = 0
-////            for variant in question.answerOptions {
-////                if del < 2, variant != question.correctAnswer {
-////                    stackView.subviews.first { subView in
-////                        if let answerButton = subView as? AnswerButton,
-////                           answerButton.titleLabel?.text == variant {
-////                            stackView.removeArrangedSubview(answerButton)
-////                            del += 1
-////                            return true
-////                        } else {
-////                            return false
-////                        }
-////                    }?.removeFromSuperview()
-////                }
-////            }
-//        default:
-//            return
-//        }
-        
-//        stackViewButtonsHelp.removeArrangedSubview(sender)
-//        sender.removeFromSuperview()
-    }
-        
     func showNextQuetion() {
         guard let question = delegate?.nextQuestion() else {
             gameOver()
             return
         }
-
+        
         let count = question.answerOptions.count
         
         titleLabel.text = question.questionTitle
@@ -183,7 +108,7 @@ final class GameViewController: UIViewController {
             stackView.addArrangedSubview(answerButton)
         }
     }
-        
+    
     @objc func didTapChooseAnswer(sender: UIButton) {
         guard let question = delegate?.getCurrentQuestion(), !isGameOver else { return }
         
@@ -249,10 +174,19 @@ extension GameViewController: HelpDelegate {
                 }
             }
         }
-        
- 
     }
-    
-    
 }
 
+
+extension GameViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return HalfSizePresentationController(presentedViewController: presented, presenting: presentingViewController)
+    }
+}
+
+class HalfSizePresentationController: UIPresentationController {
+    override var frameOfPresentedViewInContainerView: CGRect {
+        guard let bounds = containerView?.bounds else { return .zero }
+        return CGRect(x: 0, y: bounds.height / 2, width: bounds.width, height: bounds.height / 2)
+    }
+}

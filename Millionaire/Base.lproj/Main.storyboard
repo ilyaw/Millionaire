@@ -86,29 +86,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="gtK-Px-CiR"/>
-                    <connections>
-                        <segue destination="L1q-ob-kOS" kind="show" identifier="ToHelpVC" id="xH2-Eq-hht"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ahl-G1-t5F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="808.69565217391312" y="77.678571428571431"/>
-        </scene>
-        <!--Help View Controller-->
-        <scene sceneID="YZ4-tU-U3c">
-            <objects>
-                <viewController id="L1q-ob-kOS" customClass="HelpViewController" customModule="Millionaire" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Gcq-kc-H2B">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="EZl-Xc-8dg"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="UHQ-kO-y0T"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="E7F-e0-DF6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1578" y="78"/>
         </scene>
     </scenes>
     <resources>

@@ -15,7 +15,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    
     @IBAction func didTapNewGame(_ sender: UIButton) {
         Game.shared.gameSession = GameSession()
         performSegue(withIdentifier: segueToGameVC, sender: self)
