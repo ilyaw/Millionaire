@@ -17,16 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="SV5-uj-E2p">
-                                <rect key="frame" x="111" y="355" width="192" height="186"/>
+                                <rect key="frame" x="20" y="391" width="374" height="114"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Последний результат: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pCk-om-2Mo">
-                                        <rect key="frame" x="0.0" y="0.0" width="192" height="42"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMr-c0-M2Z" customClass="AnswerButton" customModule="Millionaire" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="192" height="42"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="Играть"/>
                                         <connections>
@@ -34,7 +28,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TIg-iG-chO" customClass="AnswerButton" customModule="Millionaire" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="144" width="192" height="42"/>
+                                        <rect key="frame" x="0.0" y="72" width="374" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="Результаты"/>
                                         <connections>
@@ -47,12 +41,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="SV5-uj-E2p" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="3kP-ql-knD"/>
                             <constraint firstItem="SV5-uj-E2p" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OiO-cF-LRN"/>
                             <constraint firstItem="SV5-uj-E2p" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="axc-LS-gN4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SV5-uj-E2p" secondAttribute="trailing" constant="20" id="uqd-EO-5Oe"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="scoreLabel" destination="pCk-om-2Mo" id="5F9-eW-Uws"/>
                         <segue destination="ziB-TY-VkZ" kind="presentation" identifier="ToGameVC" modalPresentationStyle="fullScreen" id="qBQ-2Z-I0Q"/>
                         <segue destination="VCB-lJ-BP9" kind="show" identifier="ToShowRecords" id="JSh-VK-XYk"/>
                     </connections>
@@ -69,16 +64,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="fQy-dd-UAB">
-                                <rect key="frame" x="0.0" y="24.5" width="414" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fQy-dd-UAB" id="Scl-qU-GzB">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="VCB-lJ-BP9" id="XnL-No-giD"/>
                             <outlet property="delegate" destination="VCB-lJ-BP9" id="Owj-Rx-dH2"/>
@@ -101,10 +86,29 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="gtK-Px-CiR"/>
+                    <connections>
+                        <segue destination="L1q-ob-kOS" kind="show" identifier="ToHelpVC" id="xH2-Eq-hht"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ahl-G1-t5F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="808.69565217391312" y="77.678571428571431"/>
+        </scene>
+        <!--Help View Controller-->
+        <scene sceneID="YZ4-tU-U3c">
+            <objects>
+                <viewController id="L1q-ob-kOS" customClass="HelpViewController" customModule="Millionaire" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Gcq-kc-H2B">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="EZl-Xc-8dg"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="UHQ-kO-y0T"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E7F-e0-DF6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1578" y="78"/>
         </scene>
     </scenes>
     <resources>

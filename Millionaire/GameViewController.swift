@@ -8,10 +8,14 @@
 import UIKit
 
 protocol GameViewControllerDelegate: AnyObject {
-    func didEndGame(with result: GameSession)
+    func hint(type: Hint)
+    func nextQuestion() -> Question?
+    func getCurrentQuestion() -> Question
+    func didEndGame()
 }
 
 final class GameViewController: UIViewController {
+    let segueToHelpVC = "ToHelpVC"
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -40,12 +44,7 @@ final class GameViewController: UIViewController {
     
     weak var delegate: GameViewControllerDelegate?
     
-    var index: Int = 0
-    var score: Int = 0
-    var callFriend: Bool = false
-    var removeIncorrectAnswers: Bool = false
-    var isGameOver: Bool = false
-    let questions: [Question] = getQuestions()
+    private var isGameOver: Bool = false
     var anwserButtons: [AnswerButton] = []
     
     override func viewDidLoad() {
@@ -101,66 +100,75 @@ final class GameViewController: UIViewController {
         stackViewButtonsHelp.addArrangedSubview(btn2)
     }
     
-    @objc func didTapTookHint(sender: UIButton) {
-        if isGameOver {
-            return
-        }
-        
-        let currentQuestion = questions[index]
-        
-        switch sender.tag {
-        case GameButton.HelpFriend.rawValue:
-            callFriend = true
-            
-            let currentButton = stackView.subviews.map { $0 as? AnswerButton}
-            let correctAnswer = questions[index].correctAnswer
-            
-            if Bool.random() {
-                showAlert(alertText: "Звонок другу", alertMessage: "Друг думает, что: \(correctAnswer)")
-            } else {
-                let randomAnswer = currentButton
-                    .filter { $0?.titleLabel?.text != correctAnswer }
-                    .randomElement()??.titleLabel?.text ?? "нет ответа"
-                
-                showAlert(alertText: "Звонок другу", alertMessage: "Друг думает, что: \(randomAnswer)")
-            }
-            
-        case GameButton.RemoveIncorrectAnswers.rawValue:
-            removeIncorrectAnswers = true
-
-            var del = 0
-            for variant in currentQuestion.answerOptions {
-                if del < 2, variant != currentQuestion.correctAnswer {
-
-                    stackView.subviews.first { subView in
-                        if let answerButton = subView as? AnswerButton,
-                           answerButton.titleLabel?.text == variant {
-                            stackView.removeArrangedSubview(answerButton)
-                            del += 1
-                            return true
-                        } else {
-                            return false
-                        }
-                    }?.removeFromSuperview()
-                }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case segueToHelpVC:
+            if let destination = segue.destination as? HelpViewController {
+                destination.delegate = self
             }
         default:
-            return
+            break
         }
-        
-        stackViewButtonsHelp.removeArrangedSubview(sender)
-        sender.removeFromSuperview()
     }
     
-    
+    @objc func didTapTookHint(sender: UIButton) {
+        
+        performSegue(withIdentifier: segueToHelpVC, sender: self)
+        
+//        guard let question = delegate?.getCurrentQuestion(), !isGameOver else { return }
+//
+//        switch sender.tag {
+//        case GameButton.HelpFriend.rawValue:
+////            delegate?.hint(type: .callFriend)
+//
+////            let currentButton = stackView.subviews.map { $0 as? AnswerButton}
+////            let correctAnswer = question.correctAnswer
+////
+////            var friendAnswer = ""
+////
+////            if Bool.random() {
+////                friendAnswer = correctAnswer
+////            } else {
+////                let randomAnswer = currentButton
+////                    .filter { $0?.titleLabel?.text != correctAnswer }
+////                    .randomElement()??.titleLabel?.text ?? "нет ответа"
+////
+////                friendAnswer = randomAnswer
+////            }
+////            showAlert(alertText: "Звонок другу", alertMessage: "Друг думает, что: \(friendAnswer)")
+////
+//        case GameButton.RemoveIncorrectAnswers.rawValue:
+////            delegate?.hint(type: .fiftyFifty)
+////
+////            var del = 0
+////            for variant in question.answerOptions {
+////                if del < 2, variant != question.correctAnswer {
+////                    stackView.subviews.first { subView in
+////                        if let answerButton = subView as? AnswerButton,
+////                           answerButton.titleLabel?.text == variant {
+////                            stackView.removeArrangedSubview(answerButton)
+////                            del += 1
+////                            return true
+////                        } else {
+////                            return false
+////                        }
+////                    }?.removeFromSuperview()
+////                }
+////            }
+//        default:
+//            return
+//        }
+        
+//        stackViewButtonsHelp.removeArrangedSubview(sender)
+//        sender.removeFromSuperview()
+    }
+        
     func showNextQuetion() {
-        if index >= questions.count {
-            // alles endet
+        guard let question = delegate?.nextQuestion() else {
             gameOver()
             return
         }
-        
-        let question = questions[index]
+
         let count = question.answerOptions.count
         
         titleLabel.text = question.questionTitle
@@ -175,18 +183,11 @@ final class GameViewController: UIViewController {
             stackView.addArrangedSubview(answerButton)
         }
     }
-    
-    @objc func didTapChooseAnswer(sender: UIButton) {
-        if isGameOver {
-            return
-        }
         
-        let question = questions[index]
+    @objc func didTapChooseAnswer(sender: UIButton) {
+        guard let question = delegate?.getCurrentQuestion(), !isGameOver else { return }
         
         if let titleButtonLabel = sender.titleLabel?.text, titleButtonLabel == question.correctAnswer  {
-            score += 1
-            index += 1
-            
             sender.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.showNextQuetion()
@@ -201,10 +202,57 @@ final class GameViewController: UIViewController {
     }
     
     private func gameOver() {
-        delegate?.didEndGame(with: GameSession(score: score,
-                                               callFriend: callFriend,
-                                               removeIncorrectAnswers: removeIncorrectAnswers,
-                                               date: Date()))
+        delegate?.didEndGame()
         dismiss(animated: true, completion: nil)
     }
 }
+
+extension GameViewController: HelpDelegate {
+    func didTapHint(with hint: Hint) {
+        guard let question = delegate?.getCurrentQuestion(), !isGameOver else { return }
+        
+        switch hint {
+        case .callFriend:
+            delegate?.hint(type: .callFriend)
+            
+            let currentButton = stackView.subviews.map { $0 as? AnswerButton}
+            let correctAnswer = question.correctAnswer
+            
+            var friendAnswer = ""
+            if Bool.random() {
+                friendAnswer = correctAnswer
+            } else {
+                let randomAnswer = currentButton
+                    .filter { $0?.titleLabel?.text != correctAnswer }
+                    .randomElement()??.titleLabel?.text ?? "нет ответа"
+                
+                friendAnswer = randomAnswer
+            }
+            showAlert(alertText: "Звонок другу", alertMessage: "Друг думает, что: \(friendAnswer)")
+            
+        case .fiftyFifty:
+            delegate?.hint(type: .fiftyFifty)
+            
+            var del = 0
+            for variant in question.answerOptions {
+                if del < 2, variant != question.correctAnswer {
+                    stackView.subviews.first { subView in
+                        if let answerButton = subView as? AnswerButton,
+                           answerButton.titleLabel?.text == variant {
+                            stackView.removeArrangedSubview(answerButton)
+                            del += 1
+                            return true
+                        } else {
+                            return false
+                        }
+                    }?.removeFromSuperview()
+                }
+            }
+        }
+        
+ 
+    }
+    
+    
+}
+

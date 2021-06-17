@@ -9,7 +9,9 @@ import UIKit
 
 class ResultsTableViewController: UITableViewController {
 
-    let gameSessions = RecordsCaretaker().loadRecords()
+    var records: [Record]? {
+        return RecordsCaretaker().loadRecords()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,20 +30,18 @@ class ResultsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gameSessions?.count ?? 0
+        return records?.count ?? 0
     }
-
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ResultsTableViewCell.reuseId, for: indexPath) as? ResultsTableViewCell,
-              let gameSessions = gameSessions?[indexPath.row] else { return UITableViewCell() }
+              let record = records?[indexPath.row] else { return UITableViewCell() }
         
-        cell.setup(with: gameSessions)        
+        cell.setup(with: record)        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
-    
 }

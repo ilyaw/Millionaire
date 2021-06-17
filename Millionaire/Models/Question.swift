@@ -17,23 +17,23 @@ func getQuestions() -> [Question] {
     var questions: [Question] = []
     
     questions.append(Question(questionTitle: "Где дети ищут подарки утром 1 января?",
-                              answerOptions: ["под ёлкой", "под палкой", "под скалкой", "под мухой"].shuffled(),
+                              answerOptions: ["под ёлкой", "под палкой", "под скалкой", "под мухой"],
                               correctAnswer: "под ёлкой"))
     
     questions.append(Question(questionTitle: "Что из перечисленного пирог?",
-                              answerOptions: ["кусака", "закаляка", "забияка", "кулебяка"].shuffled(),
+                              answerOptions: ["кусака", "закаляка", "забияка", "кулебяка"],
                               correctAnswer: "кулебяка"))
     
     questions.append(Question(questionTitle: "Провожают, как известно, по уму, а как встречают?",
-                              answerOptions: ["по одёжке" , "по сберкнижке", "по прописке", "по рекомендации"].shuffled(),
+                              answerOptions: ["по одёжке" , "по сберкнижке", "по прописке", "по рекомендации"],
                               correctAnswer: "по одёжке"))
     
     questions.append(Question(questionTitle: "Как называют мелководный бассейн, предназначенный для детей?",
-                              answerOptions: ["утятник" , "лягушатник", "селёдочник", "тюленник"].shuffled(),
+                              answerOptions: ["утятник" , "лягушатник", "селёдочник", "тюленник"],
                               correctAnswer: "лягушатник"))
     
     questions.append(Question(questionTitle: "Что, по словам кота Бегемота, он делал, когда его пришли арестовывать?",
-                              answerOptions: ["починял примус" , "чистил обувь", "варил кашу", "играл в шахматы"].shuffled(),
+                              answerOptions: ["починял примус" , "чистил обувь", "варил кашу", "играл в шахматы"],
                               correctAnswer: "починял примус"))
     
     return questions

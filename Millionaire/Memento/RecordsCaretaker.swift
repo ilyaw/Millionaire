@@ -13,7 +13,7 @@ class RecordsCaretaker {
     private let decoder = JSONDecoder()
     private let key = "key"
 
-    func saveRecords(records: [GameSession]) {
+    func saveRecords(records: [Record]) {
         do {
             let data = try encoder.encode(records)
             UserDefaults.standard.setValue(data, forKey: key)
@@ -22,13 +22,13 @@ class RecordsCaretaker {
         }
     }
 
-    func loadRecords() -> [GameSession]? {
+    func loadRecords() -> [Record]? {
         guard let data = UserDefaults.standard.data(forKey: key) else {
             return nil
         }
 
         do {
-            return try decoder.decode([GameSession].self, from: data)
+            return try decoder.decode([Record].self, from: data)
         } catch {
             print(error.localizedDescription)
             return nil

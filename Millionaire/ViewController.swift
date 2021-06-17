@@ -11,15 +11,13 @@ class ViewController: UIViewController {
     let segueToGameVC = "ToGameVC"
     let segueToShowStatistics = "ToShowRecords"
     
-    @IBOutlet weak var scoreLabel: UILabel!
-    
-    let questionCount = getQuestions().count
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    
     @IBAction func didTapNewGame(_ sender: UIButton) {
+        Game.shared.gameSession = GameSession()
         performSegue(withIdentifier: segueToGameVC, sender: self)
     }
     
@@ -27,23 +25,14 @@ class ViewController: UIViewController {
         performSegue(withIdentifier: segueToShowStatistics, sender: self)
     }
     
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case segueToGameVC:
             if let destination = segue.destination as? GameViewController {
-                destination.delegate = self
+                destination.delegate = Game.shared.gameSession
             }
         default:
             break
         }
     }
 }
-
-extension ViewController: GameViewControllerDelegate {
-    func didEndGame(with result: GameSession) {
-        scoreLabel.text = "Последний результат: \(result.score) из \(questionCount)"
-        Game.shared.addGameSession(with: result)
-    }
-}
-
