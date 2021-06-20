@@ -84,7 +84,7 @@ class HelpViewController: UIViewController {
         
         if !gameSession.callFriend {
             let btn1 = HelpButton()
-            btn1.tag = GameButton.HelpFriend.rawValue
+            btn1.tag = EnumHelpButton.HelpFriend.rawValue
             btn1.setTitle("Звонок другу 🙋‍♂️", for: .normal)
             btn1.addTarget(self, action: #selector(didTapTookHint(sender:)), for: .touchUpInside)
             stackViewButtonsHelp.addArrangedSubview(btn1)
@@ -92,7 +92,7 @@ class HelpViewController: UIViewController {
         
         if !gameSession.fiftyFifty {
             let btn2 = HelpButton()
-            btn2.tag = GameButton.RemoveIncorrectAnswers.rawValue
+            btn2.tag = EnumHelpButton.RemoveIncorrectAnswers.rawValue
             btn2.setTitle("Убрать 2 неверных ответа", for: .normal)
             btn2.addTarget(self, action: #selector(didTapTookHint(sender:)), for: .touchUpInside)
             stackViewButtonsHelp.addArrangedSubview(btn2)
@@ -102,9 +102,9 @@ class HelpViewController: UIViewController {
     @objc func didTapTookHint(sender: UIButton) {
         dismiss(animated: true) {
             switch sender.tag {
-            case GameButton.HelpFriend.rawValue:
+            case EnumHelpButton.HelpFriend.rawValue:
                 self.delegate?.didTapHint(with: .callFriend)
-            case GameButton.RemoveIncorrectAnswers.rawValue:
+            case EnumHelpButton.RemoveIncorrectAnswers.rawValue:
                 self.delegate?.didTapHint(with: .fiftyFifty)
             default:
                 break

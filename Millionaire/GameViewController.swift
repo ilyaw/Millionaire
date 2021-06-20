@@ -43,7 +43,7 @@ final class GameViewController: UIViewController {
     weak var delegate: GameViewControllerDelegate?
     
     private var isGameOver: Bool = false
-    var anwserButtons: [AnswerButton] = []
+    var anwserButtons: [GameButton] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +101,7 @@ final class GameViewController: UIViewController {
         stackView.subviews.forEach { $0.removeFromSuperview() }
         
         for i in 0..<count {
-            let answerButton = AnswerButton()
+            let answerButton = GameButton()
             answerButton.setTitle("\(question.answerOptions[i])", for: .normal)
             answerButton.addTarget(self, action: #selector(didTapChooseAnswer(sender:)), for: .touchUpInside)
             
@@ -140,7 +140,7 @@ extension GameViewController: HelpDelegate {
         case .callFriend:
             delegate?.hint(type: .callFriend)
             
-            let currentButton = stackView.subviews.map { $0 as? AnswerButton}
+            let currentButton = stackView.subviews.map { $0 as? GameButton}
             let correctAnswer = question.correctAnswer
             
             var friendAnswer = ""
@@ -162,7 +162,7 @@ extension GameViewController: HelpDelegate {
             for variant in question.answerOptions {
                 if del < 2, variant != question.correctAnswer {
                     stackView.subviews.first { subView in
-                        if let answerButton = subView as? AnswerButton,
+                        if let answerButton = subView as? GameButton,
                            answerButton.titleLabel?.text == variant {
                             stackView.removeArrangedSubview(answerButton)
                             del += 1
