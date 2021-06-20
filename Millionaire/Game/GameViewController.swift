@@ -15,10 +15,11 @@ protocol GameViewControllerDelegate: AnyObject {
 }
 
 final class GameViewController: UIViewController, GameViewProtocol {
-    
+   
     weak var delegate: GameViewControllerDelegate?
     
     var mainView: UIView { return view  }
+    var progressLabel = UILabel()
     let titleLabel = UILabel()
     let stackView = UIStackView()
     let helpButton: HelpButton = {
@@ -34,8 +35,20 @@ final class GameViewController: UIViewController, GameViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let count = Game.shared.gameSession?.questions.count
+        
+        Game.shared.gameSession?.currentIndexQuestion.addObserver(self, closure: { [weak self] (currentIndex, _) in
+            self?.progressLabel.text = "Текущий вопрос: \(currentIndex) из \(count ?? 0)"
+        })
+        
         let _ = GameSceneFacade(gameViewProtocol: self)
         showNextQuetion()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        Game.shared.gameSession?.currentIndexQuestion.removeObserver(self)
     }
     
     @objc func didTapShowHelpVC(sender: UIButton) {

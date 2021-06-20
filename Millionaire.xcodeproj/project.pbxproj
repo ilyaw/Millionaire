@@ -19,6 +19,7 @@
 		096323F9267F35BC008876EE /* SequenceStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096323F8267F35BC008876EE /* SequenceStrategy.swift */; };
 		096323FE267F54BB008876EE /* GameSceneFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096323FD267F54BB008876EE /* GameSceneFacade.swift */; };
 		09632400267F812F008876EE /* HelpViewControllerFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096323FF267F812F008876EE /* HelpViewControllerFacade.swift */; };
+		09632403267F8884008876EE /* ObservableOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09632402267F8884008876EE /* ObservableOptions.swift */; };
 		09A8EF642678CBF2007CFA79 /* HelpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A8EF632678CBF2007CFA79 /* HelpButton.swift */; };
 		09A8EF672678D0C6007CFA79 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A8EF662678D0C6007CFA79 /* UIViewController+Alert.swift */; };
 		09A8EF6C2678D764007CFA79 /* GameSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A8EF6B2678D764007CFA79 /* GameSession.swift */; };
@@ -48,6 +49,7 @@
 		096323F8267F35BC008876EE /* SequenceStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceStrategy.swift; sourceTree = "<group>"; };
 		096323FD267F54BB008876EE /* GameSceneFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneFacade.swift; sourceTree = "<group>"; };
 		096323FF267F812F008876EE /* HelpViewControllerFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewControllerFacade.swift; sourceTree = "<group>"; };
+		09632402267F8884008876EE /* ObservableOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableOptions.swift; sourceTree = "<group>"; };
 		09A8EF632678CBF2007CFA79 /* HelpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpButton.swift; sourceTree = "<group>"; };
 		09A8EF662678D0C6007CFA79 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		09A8EF6B2678D764007CFA79 /* GameSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSession.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 		094808A12677481A00348652 /* Millionaire */ = {
 			isa = PBXGroup;
 			children = (
+				09632401267F8866008876EE /* Observable */,
 				096323FB267F5240008876EE /* Facade */,
 				096323F0267F3385008876EE /* Strategy */,
 				09A8EF6D2678DA91007CFA79 /* Memento */,
@@ -156,6 +159,14 @@
 				09546EB0267BF11300167322 /* SettingsViewController.swift */,
 			);
 			path = Game;
+			sourceTree = "<group>";
+		};
+		09632401267F8866008876EE /* Observable */ = {
+			isa = PBXGroup;
+			children = (
+				09632402267F8884008876EE /* ObservableOptions.swift */,
+			);
+			path = Observable;
 			sourceTree = "<group>";
 		};
 		09A8EF652678D0AF007CFA79 /* Extensions */ = {
@@ -292,6 +303,7 @@
 				09A8EF6C2678D764007CFA79 /* GameSession.swift in Sources */,
 				09A8EF672678D0C6007CFA79 /* UIViewController+Alert.swift in Sources */,
 				09A8EF642678CBF2007CFA79 /* HelpButton.swift in Sources */,
+				09632403267F8884008876EE /* ObservableOptions.swift in Sources */,
 				096323F4267F3430008876EE /* СonsistentlyStrategy.swift in Sources */,
 				09546EB1267BF11300167322 /* SettingsViewController.swift in Sources */,
 				094808A72677481A00348652 /* MainViewController.swift in Sources */,

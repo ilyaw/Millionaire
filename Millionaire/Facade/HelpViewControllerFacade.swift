@@ -18,48 +18,48 @@ protocol HelpViewProtocol {
 
 final class HelpViewControllerFacade {
     
-    var helpView: HelpViewProtocol
+    var scene: HelpViewProtocol
     
     init(helpViewProtocol: HelpViewProtocol) {
         
-        helpView = helpViewProtocol
+        scene = helpViewProtocol
         
-        helpView.mainView.backgroundColor = .clear
-        helpView.mainView.addSubview(helpView.backdropView)
-        helpView.mainView.addSubview(helpView.menuView)
+        scene.mainView.backgroundColor = .clear
+        scene.mainView.addSubview(scene.backdropView)
+        scene.mainView.addSubview(scene.menuView)
         
         configureStackViewButtonsHelp()
         configureBackdropView()
         
         setMenuViewConstraints()
-        helpView.menuView.addSubview(helpView.stackViewButtonsHelp)
+        scene.menuView.addSubview(scene.stackViewButtonsHelp)
         setStackViewButtonsHelpConstraints()
     }
     
     private func configureStackViewButtonsHelp() {
-        helpView.stackViewButtonsHelp.axis = .vertical
-        helpView.stackViewButtonsHelp.distribution = .fillEqually
-        helpView.stackViewButtonsHelp.spacing = 10
+        scene.stackViewButtonsHelp.axis = .vertical
+        scene.stackViewButtonsHelp.distribution = .fillEqually
+        scene.stackViewButtonsHelp.spacing = 10
     }
     
     private func configureBackdropView() {
-        helpView.backdropView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        scene.backdropView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
     }
     
     private func setMenuViewConstraints() {
-        helpView.menuView.backgroundColor = .clear
-        helpView.menuView.translatesAutoresizingMaskIntoConstraints = false
-        helpView.menuView.heightAnchor.constraint(equalToConstant: helpView.menuHeight).isActive = true
-        helpView.menuView.bottomAnchor.constraint(equalTo: helpView.mainView.bottomAnchor).isActive = true
-        helpView.menuView.leadingAnchor.constraint(equalTo: helpView.mainView.leadingAnchor).isActive = true
-        helpView.menuView.trailingAnchor.constraint(equalTo: helpView.mainView.trailingAnchor).isActive = true
+        scene.menuView.backgroundColor = .clear
+        scene.menuView.translatesAutoresizingMaskIntoConstraints = false
+        scene.menuView.heightAnchor.constraint(equalToConstant: scene.menuHeight).isActive = true
+        scene.menuView.bottomAnchor.constraint(equalTo: scene.mainView.bottomAnchor).isActive = true
+        scene.menuView.leadingAnchor.constraint(equalTo: scene.mainView.leadingAnchor).isActive = true
+        scene.menuView.trailingAnchor.constraint(equalTo: scene.mainView.trailingAnchor).isActive = true
     }
 
     private func setStackViewButtonsHelpConstraints() {
-        helpView.stackViewButtonsHelp.translatesAutoresizingMaskIntoConstraints = false
-        helpView.stackViewButtonsHelp.topAnchor.constraint(equalTo: helpView.menuView.topAnchor, constant: 0).isActive = true
-        helpView.stackViewButtonsHelp.leadingAnchor.constraint(equalTo: helpView.mainView.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
-        helpView.stackViewButtonsHelp.trailingAnchor.constraint(equalTo: helpView.mainView.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        helpView.stackViewButtonsHelp.bottomAnchor.constraint(equalTo: helpView.mainView.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+        scene.stackViewButtonsHelp.translatesAutoresizingMaskIntoConstraints = false
+        scene.stackViewButtonsHelp.topAnchor.constraint(equalTo: scene.menuView.topAnchor, constant: 0).isActive = true
+        scene.stackViewButtonsHelp.leadingAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        scene.stackViewButtonsHelp.trailingAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
+        scene.stackViewButtonsHelp.bottomAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
     }
 }

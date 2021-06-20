@@ -36,7 +36,7 @@ class Game {
     func addRecord() {
         guard let gameSession = gameSession else { return }
         
-        records.append(Record(score: gameSession.currentIndexQuestion,
+        records.append(Record(score: gameSession.currentIndexQuestion.value,
                               callFriend: gameSession.callFriend,
                               removeIncorrectAnswers: gameSession.fiftyFifty,
                               date: Date()))
@@ -48,7 +48,7 @@ class Game {
 class GameSession {
     private(set) var callFriend: Bool = false
     private(set) var fiftyFifty: Bool = false
-    fileprivate var currentIndexQuestion: Int = -1
+    private(set) var currentIndexQuestion = Observable<Int>(-1)
     
     private var createSequnceStrategy: SequenceStrategy = {
         switch Game.shared.difficulty {
@@ -59,7 +59,7 @@ class GameSession {
         }
     }()
     
-    var questions: [Question]
+    private(set) var questions: [Question]
     
     init() {
         questions = createSequnceStrategy.getQuestion()
@@ -77,17 +77,17 @@ extension GameSession: GameViewControllerDelegate {
     }
     
     func nextQuestion() -> Question? {
-        currentIndexQuestion += 1
-        if currentIndexQuestion >= questions.count {
+        currentIndexQuestion.value += 1
+        if currentIndexQuestion.value >= questions.count {
             // alles endet
             return nil
         }
                 
-        return questions[currentIndexQuestion]
+        return questions[currentIndexQuestion.value]
     }
     
     func getCurrentQuestion() -> Question {
-        return questions[currentIndexQuestion]
+        return questions[currentIndexQuestion.value]
     }
     
     func didEndGame() {
