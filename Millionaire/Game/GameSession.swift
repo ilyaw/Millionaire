@@ -67,7 +67,6 @@ class GameSession {
 }
 
 extension GameSession: GameViewControllerDelegate {
-    
     func hint(type: Hint) {
         switch type {
         case .fiftyFifty:

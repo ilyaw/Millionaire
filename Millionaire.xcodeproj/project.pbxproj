@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		094808A32677481A00348652 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094808A22677481A00348652 /* AppDelegate.swift */; };
 		094808A52677481A00348652 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094808A42677481A00348652 /* SceneDelegate.swift */; };
-		094808A72677481A00348652 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094808A62677481A00348652 /* ViewController.swift */; };
+		094808A72677481A00348652 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094808A62677481A00348652 /* MainViewController.swift */; };
 		094808AA2677481A00348652 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 094808A82677481A00348652 /* Main.storyboard */; };
 		094808AC2677481B00348652 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 094808AB2677481B00348652 /* Assets.xcassets */; };
 		094808AF2677481B00348652 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 094808AD2677481B00348652 /* LaunchScreen.storyboard */; };
@@ -17,6 +17,8 @@
 		096323F4267F3430008876EE /* СonsistentlyStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096323F3267F3430008876EE /* СonsistentlyStrategy.swift */; };
 		096323F6267F343C008876EE /* RandomStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096323F5267F343C008876EE /* RandomStrategy.swift */; };
 		096323F9267F35BC008876EE /* SequenceStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096323F8267F35BC008876EE /* SequenceStrategy.swift */; };
+		096323FE267F54BB008876EE /* GameSceneFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096323FD267F54BB008876EE /* GameSceneFacade.swift */; };
+		09632400267F812F008876EE /* HelpViewControllerFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096323FF267F812F008876EE /* HelpViewControllerFacade.swift */; };
 		09A8EF642678CBF2007CFA79 /* HelpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A8EF632678CBF2007CFA79 /* HelpButton.swift */; };
 		09A8EF672678D0C6007CFA79 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A8EF662678D0C6007CFA79 /* UIViewController+Alert.swift */; };
 		09A8EF6C2678D764007CFA79 /* GameSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A8EF6B2678D764007CFA79 /* GameSession.swift */; };
@@ -35,7 +37,7 @@
 		0948089F2677481A00348652 /* Millionaire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Millionaire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		094808A22677481A00348652 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		094808A42677481A00348652 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		094808A62677481A00348652 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		094808A62677481A00348652 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		094808A92677481A00348652 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		094808AB2677481B00348652 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		094808AE2677481B00348652 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -44,6 +46,8 @@
 		096323F3267F3430008876EE /* СonsistentlyStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СonsistentlyStrategy.swift"; sourceTree = "<group>"; };
 		096323F5267F343C008876EE /* RandomStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomStrategy.swift; sourceTree = "<group>"; };
 		096323F8267F35BC008876EE /* SequenceStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceStrategy.swift; sourceTree = "<group>"; };
+		096323FD267F54BB008876EE /* GameSceneFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneFacade.swift; sourceTree = "<group>"; };
+		096323FF267F812F008876EE /* HelpViewControllerFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewControllerFacade.swift; sourceTree = "<group>"; };
 		09A8EF632678CBF2007CFA79 /* HelpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpButton.swift; sourceTree = "<group>"; };
 		09A8EF662678D0C6007CFA79 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		09A8EF6B2678D764007CFA79 /* GameSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSession.swift; sourceTree = "<group>"; };
@@ -88,20 +92,16 @@
 		094808A12677481A00348652 /* Millionaire */ = {
 			isa = PBXGroup;
 			children = (
+				096323FB267F5240008876EE /* Facade */,
 				096323F0267F3385008876EE /* Strategy */,
 				09A8EF6D2678DA91007CFA79 /* Memento */,
 				09FECA0E2677BC8F007F89A1 /* Controls */,
 				09FECA092677AF31007F89A1 /* Models */,
-				09A8EF762678DE29007CFA79 /* ResultsTableView */,
+				096323FC267F52A8008876EE /* Game */,
 				09A8EF652678D0AF007CFA79 /* Extensions */,
-				09A8EF6B2678D764007CFA79 /* GameSession.swift */,
 				094808A22677481A00348652 /* AppDelegate.swift */,
 				094808A42677481A00348652 /* SceneDelegate.swift */,
-				094808A62677481A00348652 /* ViewController.swift */,
-				09FECA0C2677B38F007F89A1 /* GameViewController.swift */,
 				094808A82677481A00348652 /* Main.storyboard */,
-				09546EB0267BF11300167322 /* SettingsViewController.swift */,
-				09A8EF97267A6469007CFA79 /* HelpViewController.swift */,
 				094808AB2677481B00348652 /* Assets.xcassets */,
 				094808AD2677481B00348652 /* LaunchScreen.storyboard */,
 				094808B02677481B00348652 /* Info.plist */,
@@ -134,6 +134,28 @@
 				09A8EF632678CBF2007CFA79 /* HelpButton.swift */,
 			);
 			path = Buttons;
+			sourceTree = "<group>";
+		};
+		096323FB267F5240008876EE /* Facade */ = {
+			isa = PBXGroup;
+			children = (
+				096323FD267F54BB008876EE /* GameSceneFacade.swift */,
+				096323FF267F812F008876EE /* HelpViewControllerFacade.swift */,
+			);
+			path = Facade;
+			sourceTree = "<group>";
+		};
+		096323FC267F52A8008876EE /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				09A8EF762678DE29007CFA79 /* ResultsTableView */,
+				09A8EF6B2678D764007CFA79 /* GameSession.swift */,
+				094808A62677481A00348652 /* MainViewController.swift */,
+				09FECA0C2677B38F007F89A1 /* GameViewController.swift */,
+				09A8EF97267A6469007CFA79 /* HelpViewController.swift */,
+				09546EB0267BF11300167322 /* SettingsViewController.swift */,
+			);
+			path = Game;
 			sourceTree = "<group>";
 		};
 		09A8EF652678D0AF007CFA79 /* Extensions */ = {
@@ -259,6 +281,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				09A8EF712678DDC1007CFA79 /* ResultsTableViewController.swift in Sources */,
+				09632400267F812F008876EE /* HelpViewControllerFacade.swift in Sources */,
+				096323FE267F54BB008876EE /* GameSceneFacade.swift in Sources */,
 				09FECA0D2677B38F007F89A1 /* GameViewController.swift in Sources */,
 				09A8EF742678DE0F007CFA79 /* ResultsTableViewCell.swift in Sources */,
 				096323F9267F35BC008876EE /* SequenceStrategy.swift in Sources */,
@@ -270,7 +294,7 @@
 				09A8EF642678CBF2007CFA79 /* HelpButton.swift in Sources */,
 				096323F4267F3430008876EE /* СonsistentlyStrategy.swift in Sources */,
 				09546EB1267BF11300167322 /* SettingsViewController.swift in Sources */,
-				094808A72677481A00348652 /* ViewController.swift in Sources */,
+				094808A72677481A00348652 /* MainViewController.swift in Sources */,
 				09FECA0B2677AF4C007F89A1 /* Question.swift in Sources */,
 				09FECA102677BCB3007F89A1 /* GameButton.swift in Sources */,
 				094808A32677481A00348652 /* AppDelegate.swift in Sources */,

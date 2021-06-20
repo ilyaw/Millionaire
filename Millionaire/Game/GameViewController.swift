@@ -14,78 +14,35 @@ protocol GameViewControllerDelegate: AnyObject {
     func didEndGame()
 }
 
-final class GameViewController: UIViewController {
+final class GameViewController: UIViewController, GameViewProtocol {
     
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 26)
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.adjustsFontSizeToFitWidth = true
-        return label
-    }()
+    weak var delegate: GameViewControllerDelegate?
     
-    let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 20
-        return stackView
-    }()
-    
+    var mainView: UIView { return view  }
+    let titleLabel = UILabel()
+    let stackView = UIStackView()
     let helpButton: HelpButton = {
         let button = HelpButton()
-        button.setTitle("Показать подсказки", for: .normal)
         button.addTarget(self, action: #selector(didTapShowHelpVC), for: .touchUpInside)
         return button
     }()
     
-    weak var delegate: GameViewControllerDelegate?
-    
     private var isGameOver: Bool = false
+    var pressedButton: Bool = false
     var anwserButtons: [GameButton] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(titleLabel)
-        view.addSubview(stackView)
-        view.addSubview(helpButton)
-        
-        setTitleConstraints()
-        setStackViewConstraints()
+        let _ = GameSceneFacade(gameViewProtocol: self)
         showNextQuetion()
-        setHelpButtonConstraints()
-    }
-    
-    func setHelpButtonConstraints() {
-        helpButton.translatesAutoresizingMaskIntoConstraints = false
-        helpButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 25).isActive = true
-        helpButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25).isActive = true
-        helpButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25).isActive = true
-        helpButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -25).isActive = true
-    }
-    
-    func setTitleConstraints() {
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
-        titleLabel.heightAnchor.constraint(equalToConstant: 150).isActive = true
-    }
-    
-    func setStackViewConstraints() {
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25).isActive = true
     }
     
     @objc func didTapShowHelpVC(sender: UIButton) {
-        let vc = HelpViewController()
-        vc.delegate = self
-        vc.modalPresentationStyle = .custom
-        present(vc, animated: true, completion: nil)
+        let helpVC = HelpViewController()
+        helpVC.delegate = self
+        helpVC.modalPresentationStyle = .custom
+        present(helpVC, animated: true, completion: nil)
     }
     
     func showNextQuetion() {
@@ -110,12 +67,16 @@ final class GameViewController: UIViewController {
     }
     
     @objc func didTapChooseAnswer(sender: UIButton) {
-        guard let question = delegate?.getCurrentQuestion(), !isGameOver else { return }
+        guard let question = delegate?.getCurrentQuestion(),
+              !isGameOver,
+              !pressedButton else { return }
         
         if let titleButtonLabel = sender.titleLabel?.text, titleButtonLabel == question.correctAnswer  {
+            pressedButton = true
             sender.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.showNextQuetion()
+                self.pressedButton = false
             }
         } else {
             isGameOver = true

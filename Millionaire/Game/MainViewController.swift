@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  Millionaire
 //
 //  Created by Ilya on 14.06.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     let segueToGameVC = "ToGameVC"
     let segueToShowStatistics = "ToShowRecords"
     let segueToShowSettings = "ToShowSettings"

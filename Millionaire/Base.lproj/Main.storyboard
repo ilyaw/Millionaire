@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Millionaire" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="Millionaire" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -120,11 +120,8 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dJT-UL-vnh" customClass="GameButton" customModule="Millionaire" customModuleProvider="target">
-                                <rect key="frame" x="5" y="134" width="404" height="33"/>
+                                <rect key="frame" x="20" y="134" width="374" height="30"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="33" id="e6w-sw-Mlv"/>
-                                </constraints>
                                 <state key="normal" title="Сохранить">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -137,9 +134,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="dJT-UL-vnh" firstAttribute="top" secondItem="ppu-yS-oPM" secondAttribute="bottom" constant="20" id="2DB-Ig-0Ds"/>
-                            <constraint firstItem="OOn-1l-xsN" firstAttribute="trailing" secondItem="dJT-UL-vnh" secondAttribute="trailing" constant="5" id="MYW-SD-a0k"/>
+                            <constraint firstItem="OOn-1l-xsN" firstAttribute="trailing" secondItem="dJT-UL-vnh" secondAttribute="trailing" constant="20" id="MYW-SD-a0k"/>
                             <constraint firstItem="ppu-yS-oPM" firstAttribute="top" secondItem="OOn-1l-xsN" secondAttribute="top" constant="5" id="UMd-i6-mJh"/>
-                            <constraint firstItem="dJT-UL-vnh" firstAttribute="leading" secondItem="OOn-1l-xsN" secondAttribute="leading" constant="5" id="VlD-En-nlu"/>
+                            <constraint firstItem="dJT-UL-vnh" firstAttribute="leading" secondItem="OOn-1l-xsN" secondAttribute="leading" constant="20" id="VlD-En-nlu"/>
                             <constraint firstItem="ppu-yS-oPM" firstAttribute="leading" secondItem="OOn-1l-xsN" secondAttribute="leading" id="Yk2-t1-Taj"/>
                             <constraint firstItem="OOn-1l-xsN" firstAttribute="trailing" secondItem="ppu-yS-oPM" secondAttribute="trailing" id="zNW-Um-OJU"/>
                         </constraints>

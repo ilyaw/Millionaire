@@ -11,24 +11,13 @@ protocol HelpDelegate: AnyObject {
     func didTapHint(with hint: Hint)
 }
 
-class HelpViewController: UIViewController {
+class HelpViewController: UIViewController, HelpViewProtocol {
 
     weak var delegate: HelpDelegate?
     
-    let stackViewButtonsHelp: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10
-        return stackView
-    }()
-    
-    lazy var backdropView: UIView = {
-        let bdView = UIView(frame: self.view.bounds)
-        bdView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        return bdView
-    }()
-    
+    var mainView: UIView { return view }
+    let stackViewButtonsHelp = UIStackView()
+    lazy var backdropView = UIView(frame: self.view.bounds)
     let menuView = UIView()
     let menuHeight = UIScreen.main.bounds.height / 4
     var isPresenting = false
@@ -46,39 +35,14 @@ class HelpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        view.backgroundColor = .clear
-        view.addSubview(backdropView)
-        view.addSubview(menuView)
-        
-        setMenuViewConstraints()
+        let _ = HelpViewControllerFacade(helpViewProtocol: self)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         backdropView.addGestureRecognizer(tapGesture)
     
-        menuView.addSubview(stackViewButtonsHelp)
-
-        setStackViewButtonsHelpConstraints()
         showButtonsHelp()
     }
     
-    func setMenuViewConstraints() {
-        menuView.backgroundColor = .clear
-        menuView.translatesAutoresizingMaskIntoConstraints = false
-        menuView.heightAnchor.constraint(equalToConstant: menuHeight).isActive = true
-        menuView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        menuView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        menuView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-    }
-    
-    func setStackViewButtonsHelpConstraints() {
-        stackViewButtonsHelp.translatesAutoresizingMaskIntoConstraints = false
-        stackViewButtonsHelp.topAnchor.constraint(equalTo: menuView.topAnchor, constant: 0).isActive = true
-        stackViewButtonsHelp.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
-        stackViewButtonsHelp.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        stackViewButtonsHelp.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
-    }
-
     func showButtonsHelp() {
         guard let gameSession = Game.shared.gameSession else { return }
         
