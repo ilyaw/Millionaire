@@ -11,7 +11,8 @@ import UIKit
 protocol GameViewProtocol {
     var progressLabel: UILabel { get }
     var titleLabel: UILabel { get }
-    var stackView: UIStackView { get }
+    var stackViewTop: UIStackView { get }
+    var stackViewAnswerButtons: UIStackView { get }
     var helpButton: HelpButton { get }
     var mainView: UIView { get }
 }
@@ -23,24 +24,33 @@ final class GameSceneFacade {
     init(gameViewProtocol: GameViewProtocol) {
         scene = gameViewProtocol
         
-        scene.mainView.addSubview(scene.progressLabel)
+        scene.mainView.addSubview(scene.stackViewTop)
         scene.mainView.addSubview(scene.titleLabel)
-        scene.mainView.addSubview(scene.stackView)
+        scene.mainView.addSubview(scene.stackViewAnswerButtons)
         scene.mainView.addSubview(scene.helpButton)
         
+        scene.stackViewTop.addArrangedSubview(scene.progressLabel)
+        scene.stackViewTop.addArrangedSubview(scene.helpButton)
+        
         configureProgressLabel()
+        configureStackViewTop()
         configureTitleLabel()
         configureStackView()
         configureHelpButton()
         
-        setProgressLabel()
+        setStackViewTop()
         setTitleConstraints()
         setStackViewConstraints()
-        setHelpButtonConstraints()
     }
     
     private func configureProgressLabel() {
+        scene.progressLabel.font = UIFont.systemFont(ofSize: 15)
         scene.progressLabel.textAlignment = .center
+    }
+    
+    private func configureStackViewTop() {
+        scene.stackViewTop.axis = .horizontal
+        scene.stackViewTop.distribution = .fillEqually
     }
     
     private func configureTitleLabel() {
@@ -51,43 +61,36 @@ final class GameSceneFacade {
     }
     
     private func configureStackView() {
-        scene.stackView.axis = .vertical
-        scene.stackView.distribution = .fillEqually
-        scene.stackView.spacing = 20
+        scene.stackViewAnswerButtons.axis = .vertical
+        scene.stackViewAnswerButtons.distribution = .fillEqually
+        scene.stackViewAnswerButtons.spacing = 20
     }
     
     private func configureHelpButton() {
-        scene.helpButton.setTitle("Показать подсказки", for: .normal)
+        scene.helpButton.setTitle("Подсказки", for: .normal)
     }
     
-    private func setProgressLabel() {
-        scene.progressLabel.translatesAutoresizingMaskIntoConstraints = false
-        scene.progressLabel.topAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.topAnchor, constant: 15).isActive = true
-        scene.progressLabel.leadingAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
-        scene.progressLabel.trailingAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
-//        scene.progressLabel.bottomAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
+    private func setStackViewTop() {
+        scene.stackViewTop.translatesAutoresizingMaskIntoConstraints = false
+        scene.stackViewTop.topAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        scene.stackViewTop.leadingAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        scene.stackViewTop.trailingAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
     }
     
     private func setTitleConstraints() {
         scene.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        scene.titleLabel.topAnchor.constraint(equalTo: scene.progressLabel.topAnchor, constant: 15).isActive = true
+        scene.titleLabel.topAnchor.constraint(equalTo: scene.stackViewTop.bottomAnchor, constant: 15).isActive = true
         scene.titleLabel.leadingAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
         scene.titleLabel.trailingAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
         scene.titleLabel.heightAnchor.constraint(equalToConstant: 150).isActive = true
     }
     
     private func setStackViewConstraints() {
-        scene.stackView.translatesAutoresizingMaskIntoConstraints = false
-        scene.stackView.topAnchor.constraint(equalTo: scene.titleLabel.bottomAnchor, constant: 20).isActive = true
-        scene.stackView.leadingAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.leadingAnchor, constant: 25).isActive = true
-        scene.stackView.trailingAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.trailingAnchor, constant: -25).isActive = true
+        scene.stackViewAnswerButtons.translatesAutoresizingMaskIntoConstraints = false
+        scene.stackViewAnswerButtons.topAnchor.constraint(equalTo: scene.titleLabel.bottomAnchor, constant: 20).isActive = true
+        scene.stackViewAnswerButtons.leadingAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.leadingAnchor, constant: 25).isActive = true
+        scene.stackViewAnswerButtons.trailingAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.trailingAnchor, constant: -25).isActive = true
+        scene.stackViewAnswerButtons.bottomAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.bottomAnchor, constant: -25).isActive = true
     }
     
-    private func setHelpButtonConstraints() {
-        scene.helpButton.translatesAutoresizingMaskIntoConstraints = false
-        scene.helpButton.topAnchor.constraint(equalTo: scene.stackView.bottomAnchor, constant: 25).isActive = true
-        scene.helpButton.leadingAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.leadingAnchor, constant: 25).isActive = true
-        scene.helpButton.trailingAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.trailingAnchor, constant: -25).isActive = true
-        scene.helpButton.bottomAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.bottomAnchor, constant: -25).isActive = true
-    }
 }

@@ -20,8 +20,9 @@ final class GameViewController: UIViewController, GameViewProtocol {
     
     var mainView: UIView { return view  }
     var progressLabel = UILabel()
+    var stackViewTop = UIStackView()
     let titleLabel = UILabel()
-    let stackView = UIStackView()
+    let stackViewAnswerButtons = UIStackView()
     let helpButton: HelpButton = {
         let button = HelpButton()
         button.addTarget(self, action: #selector(didTapShowHelpVC), for: .touchUpInside)
@@ -68,14 +69,14 @@ final class GameViewController: UIViewController, GameViewProtocol {
         
         titleLabel.text = question.questionTitle
         
-        stackView.subviews.forEach { $0.removeFromSuperview() }
+        stackViewAnswerButtons.subviews.forEach { $0.removeFromSuperview() }
         
         for i in 0..<count {
             let answerButton = GameButton()
             answerButton.setTitle("\(question.answerOptions[i])", for: .normal)
             answerButton.addTarget(self, action: #selector(didTapChooseAnswer(sender:)), for: .touchUpInside)
             
-            stackView.addArrangedSubview(answerButton)
+            stackViewAnswerButtons.addArrangedSubview(answerButton)
         }
     }
     
@@ -114,7 +115,7 @@ extension GameViewController: HelpDelegate {
         case .callFriend:
             delegate?.hint(type: .callFriend)
             
-            let currentButton = stackView.subviews.map { $0 as? GameButton}
+            let currentButton = stackViewAnswerButtons.subviews.map { $0 as? GameButton}
             let correctAnswer = question.correctAnswer
             
             var friendAnswer = ""
@@ -135,10 +136,10 @@ extension GameViewController: HelpDelegate {
             var del = 0
             for variant in question.answerOptions {
                 if del < 2, variant != question.correctAnswer {
-                    stackView.subviews.first { subView in
+                    stackViewAnswerButtons.subviews.first { subView in
                         if let answerButton = subView as? GameButton,
                            answerButton.titleLabel?.text == variant {
-                            stackView.removeArrangedSubview(answerButton)
+                            stackViewAnswerButtons.removeArrangedSubview(answerButton)
                             del += 1
                             return true
                         } else {
@@ -152,7 +153,7 @@ extension GameViewController: HelpDelegate {
         if let gameSession = Game.shared.gameSession {
             if gameSession.callFriend && gameSession.fiftyFifty {
                 helpButton.removeFromSuperview()
-                stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+//                stackViewAnswerButtons.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
             }
         }
         
