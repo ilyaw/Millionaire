@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="SV5-uj-E2p">
-                                <rect key="frame" x="20" y="391" width="374" height="114"/>
+                                <rect key="frame" x="20" y="319" width="374" height="258"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMr-c0-M2Z" customClass="AnswerButton" customModule="Millionaire" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="42"/>
@@ -35,6 +35,22 @@
                                             <action selector="didTapShowStatistics:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iJB-na-cGz"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ku-SC-jz8" customClass="AnswerButton" customModule="Millionaire" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="144" width="374" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <state key="normal" title="Настройки"/>
+                                        <connections>
+                                            <action selector="didTapShowSettings:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0KT-ak-jyx"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="teX-UP-v60" customClass="AnswerButton" customModule="Millionaire" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="216" width="374" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <state key="normal" title="Добавить вопрос"/>
+                                        <connections>
+                                            <action selector="didTapAddNewQuestions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="krG-q1-ugZ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -50,6 +66,8 @@
                     <connections>
                         <segue destination="ziB-TY-VkZ" kind="presentation" identifier="ToGameVC" modalPresentationStyle="fullScreen" id="qBQ-2Z-I0Q"/>
                         <segue destination="VCB-lJ-BP9" kind="show" identifier="ToShowRecords" id="JSh-VK-XYk"/>
+                        <segue destination="mDd-kQ-tkd" kind="show" identifier="ToShowSettings" id="IYB-z2-2ye"/>
+                        <segue destination="a9f-iC-6lG" kind="show" identifier="AddNewQuestions" id="npx-jb-tI5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -73,7 +91,116 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UCF-4E-DJf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="29" y="803"/>
+            <point key="canvasLocation" x="-714" y="801"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="ncK-cc-mTb">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="mDd-kQ-tkd" customClass="SettingsViewController" customModule="Millionaire" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Xke-em-WPi">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="ppu-yS-oPM">
+                                <rect key="frame" x="0.0" y="49" width="414" height="65"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Порядок вопросов" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUJ-aO-Tmu">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="31"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mWJ-RL-d6W">
+                                        <rect key="frame" x="0.0" y="34" width="414" height="32"/>
+                                        <segments>
+                                            <segment title="В последовательном"/>
+                                            <segment title="В случайном"/>
+                                        </segments>
+                                    </segmentedControl>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dJT-UL-vnh">
+                                <rect key="frame" x="5" y="134" width="404" height="30"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <state key="normal" title="Сохранить">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="didTapSaveButton:" destination="mDd-kQ-tkd" eventType="touchUpInside" id="F0y-XF-cdb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="OOn-1l-xsN"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dJT-UL-vnh" firstAttribute="top" secondItem="ppu-yS-oPM" secondAttribute="bottom" constant="20" id="2DB-Ig-0Ds"/>
+                            <constraint firstItem="OOn-1l-xsN" firstAttribute="trailing" secondItem="dJT-UL-vnh" secondAttribute="trailing" constant="5" id="MYW-SD-a0k"/>
+                            <constraint firstItem="ppu-yS-oPM" firstAttribute="top" secondItem="OOn-1l-xsN" secondAttribute="top" constant="5" id="UMd-i6-mJh"/>
+                            <constraint firstItem="dJT-UL-vnh" firstAttribute="leading" secondItem="OOn-1l-xsN" secondAttribute="leading" constant="5" id="VlD-En-nlu"/>
+                            <constraint firstItem="ppu-yS-oPM" firstAttribute="leading" secondItem="OOn-1l-xsN" secondAttribute="leading" id="Yk2-t1-Taj"/>
+                            <constraint firstItem="OOn-1l-xsN" firstAttribute="trailing" secondItem="ppu-yS-oPM" secondAttribute="trailing" id="zNW-Um-OJU"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Pdo-DP-ZOu"/>
+                    <connections>
+                        <outlet property="difficultySegmentControl" destination="mWJ-RL-d6W" id="Z1k-oY-cmS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1ee-ub-C4C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="29" y="801"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ub8-FS-MKJ">
+            <objects>
+                <viewController id="a9f-iC-6lG" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="91H-33-X8V">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tEJ-Hb-Adn">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="767"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="TN1-N2-a9m">
+                                <rect key="frame" x="0.0" y="772" width="414" height="36"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zag-Sd-L24">
+                                        <rect key="frame" x="0.0" y="0.0" width="204.5" height="36"/>
+                                        <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="+">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HBd-7c-wrd">
+                                        <rect key="frame" x="209.5" y="0.0" width="204.5" height="36"/>
+                                        <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="Добавить">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="oK4-Qi-iSm"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="TN1-N2-a9m" firstAttribute="leading" secondItem="oK4-Qi-iSm" secondAttribute="leading" id="FDd-CU-xRO"/>
+                            <constraint firstItem="oK4-Qi-iSm" firstAttribute="bottom" secondItem="TN1-N2-a9m" secondAttribute="bottom" id="NAZ-et-iFg"/>
+                            <constraint firstItem="tEJ-Hb-Adn" firstAttribute="top" secondItem="oK4-Qi-iSm" secondAttribute="top" id="P63-Gf-ttz"/>
+                            <constraint firstItem="oK4-Qi-iSm" firstAttribute="trailing" secondItem="TN1-N2-a9m" secondAttribute="trailing" id="Qq8-Hu-aqG"/>
+                            <constraint firstItem="tEJ-Hb-Adn" firstAttribute="leading" secondItem="oK4-Qi-iSm" secondAttribute="leading" id="YXc-ah-9Dx"/>
+                            <constraint firstItem="TN1-N2-a9m" firstAttribute="top" secondItem="tEJ-Hb-Adn" secondAttribute="bottom" constant="5" id="vSY-Ub-1sE"/>
+                            <constraint firstItem="oK4-Qi-iSm" firstAttribute="trailing" secondItem="tEJ-Hb-Adn" secondAttribute="trailing" id="xu3-zr-oh9"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="5IL-Sb-kmm"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UGU-oQ-Qir" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="768" y="801"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="xUa-ht-xQa">
@@ -93,6 +220,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

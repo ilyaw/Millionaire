@@ -9,11 +9,11 @@ import Foundation
 
 struct Question {
     let questionTitle: String
-    let answerOptions: [String]
+    var answerOptions: [String]
     let correctAnswer: String
 }
 
-func getQuestions() -> [Question] {
+func fillArray() -> [Question] {
     var questions: [Question] = []
     
     questions.append(Question(questionTitle: "Где дети ищут подарки утром 1 января?",
@@ -38,5 +38,7 @@ func getQuestions() -> [Question] {
     
     return questions
 }
+
+
 
 

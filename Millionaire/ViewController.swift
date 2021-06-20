@@ -10,6 +10,8 @@ import UIKit
 class ViewController: UIViewController {
     let segueToGameVC = "ToGameVC"
     let segueToShowStatistics = "ToShowRecords"
+    let segueToShowSettings = "ToShowSettings"
+    let segueAddNewQuestions = "AddNewQuestions"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +24,14 @@ class ViewController: UIViewController {
     
     @IBAction func didTapShowStatistics(_ sender: UIButton) {
         performSegue(withIdentifier: segueToShowStatistics, sender: self)
+    }
+    
+    @IBAction func didTapShowSettings(_ sender: UIButton) {
+        performSegue(withIdentifier: segueToShowSettings, sender: self)
+    }
+    
+    @IBAction func didTapAddNewQuestions(_ sender: UIButton) {
+        performSegue(withIdentifier: segueAddNewQuestions, sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

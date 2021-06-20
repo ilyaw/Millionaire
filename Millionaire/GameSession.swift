@@ -12,6 +12,10 @@ enum Hint {
     case fiftyFifty, callFriend
 }
 
+enum Difficulty: Int {
+    case easy, hard
+}
+
 class Game {
     static let shared = Game()
     
@@ -21,6 +25,7 @@ class Game {
         }
     }
     
+    var difficulty: Difficulty = .easy
     var gameSession: GameSession?
     private let recordsCaretaker = RecordsCaretaker()
     
@@ -45,7 +50,20 @@ class GameSession {
     private(set) var fiftyFifty: Bool = false
     fileprivate var currentIndexQuestion: Int = -1
     
-    var questions = getQuestions()
+    private var createSequnceStrategy: SequenceStrategy = {
+        switch Game.shared.difficulty {
+        case .easy:
+            return СonsistentlyStrategy()
+        case .hard:
+            return RandomStrategy()
+        }
+    }()
+    
+    var questions: [Question]
+    
+    init() {
+        questions = createSequnceStrategy.getQuestion()
+    }
 }
 
 extension GameSession: GameViewControllerDelegate {

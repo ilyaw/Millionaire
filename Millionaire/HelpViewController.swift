@@ -112,7 +112,6 @@ class HelpViewController: UIViewController {
         }
     }
     
-    
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         dismiss(animated: true, completion: nil)
     }

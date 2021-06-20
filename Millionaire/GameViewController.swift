@@ -174,9 +174,16 @@ extension GameViewController: HelpDelegate {
                 }
             }
         }
+        
+        if let gameSession = Game.shared.gameSession {
+            if gameSession.callFriend && gameSession.fiftyFifty {
+                helpButton.removeFromSuperview()
+                stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+            }
+        }
+        
     }
 }
-
 
 extension GameViewController: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
