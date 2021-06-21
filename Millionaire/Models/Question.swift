@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Question {
+struct Question: Codable {
     let questionTitle: String
     let answerOptions: [String]
     let correctAnswer: String
@@ -15,6 +15,11 @@ struct Question {
 
 func fillArray() -> [Question] {
     var questions: [Question] = []
+    
+    let customQuestions = Caretaker<Question>(key: "question").load() ?? []
+    
+    questions.append(contentsOf: customQuestions)
+    
     
     questions.append(Question(questionTitle: "Где дети ищут подарки утром 1 января?",
                               answerOptions: ["под ёлкой", "под палкой", "под скалкой", "под мухой"],

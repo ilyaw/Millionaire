@@ -13,7 +13,7 @@ protocol GameViewProtocol {
     var titleLabel: UILabel { get }
     var stackViewTop: UIStackView { get }
     var stackViewAnswerButtons: UIStackView { get }
-    var helpButton: HelpButton { get }
+    var helpButton: UIButton { get }
     var mainView: UIView { get }
 }
 
@@ -67,7 +67,8 @@ final class GameSceneFacade {
     }
     
     private func configureHelpButton() {
-        scene.helpButton.setTitle("Подсказки", for: .normal)
+        scene.helpButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 100, bottom: 0, right: 0)
+        scene.helpButton.setImage(UIImage(named: "icons8-ask-question-30"), for: .normal)
     }
     
     private func setStackViewTop() {
@@ -75,6 +76,7 @@ final class GameSceneFacade {
         scene.stackViewTop.topAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         scene.stackViewTop.leadingAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         scene.stackViewTop.trailingAnchor.constraint(equalTo: scene.mainView.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
+        scene.stackViewTop.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
     private func setTitleConstraints() {

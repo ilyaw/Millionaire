@@ -23,8 +23,8 @@ final class GameViewController: UIViewController, GameViewProtocol {
     var stackViewTop = UIStackView()
     let titleLabel = UILabel()
     let stackViewAnswerButtons = UIStackView()
-    let helpButton: HelpButton = {
-        let button = HelpButton()
+    let helpButton: UIButton = {
+        let button = UIButton()
         button.addTarget(self, action: #selector(didTapShowHelpVC), for: .touchUpInside)
         return button
     }()
@@ -153,7 +153,6 @@ extension GameViewController: HelpDelegate {
         if let gameSession = Game.shared.gameSession {
             if gameSession.callFriend && gameSession.fiftyFifty {
                 helpButton.removeFromSuperview()
-//                stackViewAnswerButtons.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
             }
         }
         

@@ -21,16 +21,29 @@ class Game {
     
     private(set) var records: [Record] {
         didSet {
-            recordsCaretaker.saveRecords(records: records)
+            recordsCaretaker.save(array: records)
         }
     }
     
+    private(set) var questions: [Question] {
+        didSet {
+            questionCaretaker.save(array: questions)
+        }
+    }
+    
+    
     var difficulty: Difficulty = .easy
     var gameSession: GameSession?
-    private let recordsCaretaker = RecordsCaretaker()
+    private let recordsCaretaker = Caretaker<Record>(key: "record")
+    private let questionCaretaker = Caretaker<Question>(key: "question")
     
     private init() {
-        records = recordsCaretaker.loadRecords() ?? []
+        records = recordsCaretaker.load() ?? []
+        questions = questionCaretaker.load() ?? []
+    }
+    
+    func addQuestion(model: Question) {
+        questions.append(model)
     }
     
     func addRecord() {

@@ -10,7 +10,7 @@ import UIKit
 class ResultsTableViewController: UITableViewController {
 
     var records: [Record]? {
-        return RecordsCaretaker().loadRecords()
+        return Caretaker<Record>(key: "record").load()
     }
     
     override func viewDidLoad() {
