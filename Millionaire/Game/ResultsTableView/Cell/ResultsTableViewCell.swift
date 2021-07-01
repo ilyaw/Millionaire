@@ -24,11 +24,11 @@ class ResultsTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func setup(with gameSession: GameSession) {
+    func setup(with record: Record) {
         
-        dateLabel.text = "Дата игры: \( DateFormatter.localizedString(from: gameSession.date, dateStyle: .medium, timeStyle: .short))"
-        scoreLabel.text = "Количество очков: \(gameSession.score)"
-        callFriendLabel.text = "Звонок другу: \(gameSession.callFriend ? "Да" : "Нет")"
-        removeIncorrectAnswersLabel.text = "Убрать 2 неправильных варианта: \(gameSession.removeIncorrectAnswers ? "Да" : "Нет")"
+        dateLabel.text = "Дата игры: \( DateFormatter.localizedString(from: record.date, dateStyle: .medium, timeStyle: .short))"
+        scoreLabel.text = "Количество очков: \(record.score)"
+        callFriendLabel.text = "Звонок другу: \(record.callFriend ? "Да" : "Нет")"
+        removeIncorrectAnswersLabel.text = "Убрать 2 неправильных варианта: \(record.removeIncorrectAnswers ? "Да" : "Нет")"
     }
 }

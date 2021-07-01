@@ -1,34 +1,38 @@
 //
-//  RecordsCaretaker.swift
+//  MementoCaretaker.swift
 //  Millionaire
 //
-//  Created by Ilya on 15.06.2021.
+//  Created by Ilya on 21.06.2021.
 //
 
 import Foundation
 
-class RecordsCaretaker {
+class Caretaker<T: Codable> {
 
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
-    private let key = "key"
+    private var key = "key"
+    
+    init(key: String) {
+        self.key = key
+    }
 
-    func saveRecords(records: [GameSession]) {
+    func save(array: [T]) {
         do {
-            let data = try encoder.encode(records)
+            let data = try encoder.encode(array)
             UserDefaults.standard.setValue(data, forKey: key)
         } catch {
             print(error.localizedDescription)
         }
     }
 
-    func loadRecords() -> [GameSession]? {
+    func load() -> [T]? {
         guard let data = UserDefaults.standard.data(forKey: key) else {
             return nil
         }
 
         do {
-            return try decoder.decode([GameSession].self, from: data)
+            return try decoder.decode([T].self, from: data)
         } catch {
             print(error.localizedDescription)
             return nil

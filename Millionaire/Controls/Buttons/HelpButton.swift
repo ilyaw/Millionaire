@@ -1,14 +1,19 @@
 //
-//  AnswerButton.swift
+//  HelpButton.swift
 //  Millionaire
 //
-//  Created by Ilya on 14.06.2021.
+//  Created by Ilya on 15.06.2021.
 //
 
 import UIKit
 
-class AnswerButton: UIButton {
+enum EnumHelpButton: Int {
+    case HelpFriend = 1
+    case RemoveIncorrectAnswers = 2
+}
 
+class HelpButton: UIButton {
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupButton()
@@ -21,8 +26,8 @@ class AnswerButton: UIButton {
     
     func setupButton() {
         setTitleColor(.white, for: .normal)
-        backgroundColor = #colorLiteral(red: 0.4941176471, green: 0.6901960784, blue: 1, alpha: 1)
+        backgroundColor = #colorLiteral(red: 0.6529653668, green: 0.6184541583, blue: 0, alpha: 1)
         titleLabel?.font = UIFont(name: "AvenirNext-DemiBoldItalic", size: 22)
-        layer.cornerRadius = 20
+        layer.cornerRadius = 10
     }
 }
